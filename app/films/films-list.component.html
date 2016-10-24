@@ -1,0 +1,64 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-sm-2">
+                <img src="app/assets/images/logo.png" class="header-logo">
+            </div>
+            <div class="col-xs-8 col-sm-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-4 hidden-xs">
+                            <label for="searchByTitle">Search by </label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12" style="padding-left: 0">
+                            <input class="form-control"
+                                   placeholder="{{isGTxs ? 'title' : 'Search by title'}}"
+                                   type="text"
+                                   id="searchByTitle" name="searchByTitle"
+                                   [(ngModel)]="searchByTitle"
+                                   (keyup)="sendSearch(null, $event)"
+                            />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Poster</th>
+                    <th>Title</th>
+                    <th>Release Date</th>
+                    <th>Overview</th>
+                    <th *ngIf="!isUpcoming">Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr *ngFor="let film of pages[currPageIndex] | filmFilter: listFilter" class="{{film.id}}">-->
+                <tr *ngFor="let film of pages[currPageIndex]" class="{{film.id}}">
+                    <td>
+                        <div *ngIf="!film.poster_path" class="no-cover"><h6>{{film.title}}</h6></div>
+                        <img *ngIf="film.poster_path" [src]="config.images.base_url + config.images.poster_sizes[0] + film.poster_path">
+                    </td>
+                    <td>{{film.title}}</td>
+                    <!--<td>{{film.release_date | date}}</td>-->
+                    <td>{{film.release_date}}</td>
+                    <td>{{film.overview}}</td>
+                    <td *ngIf="!isUpcoming">{{film.vote_average}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--<div *ngFor="let film of pages[currPageIndex];" class="{{film.id}}">
+    {{film.original_title}}
+</div>-->
+
+<ul>
+    <li *ngFor="let page of pages; let i_pag = index" (click)="newPage(i_pag)">{{i_pag+1}}</li>
+</ul>
