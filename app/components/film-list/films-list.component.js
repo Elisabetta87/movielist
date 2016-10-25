@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var movie_service_1 = require("../../services/movie.service");
 require("rxjs/Rx");
-var movie_service_1 = require("../services/movie.service");
 var FilmsListComponent = (function () {
     function FilmsListComponent(mvs) {
         this.mvs = mvs;
@@ -20,9 +20,14 @@ var FilmsListComponent = (function () {
         this.isStillUpcoming = true;
     }
     FilmsListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.mvs.getConfig()
+            .subscribe(function (data) {
+            _this.config = data;
+        });
         this.currPageIndex = 0;
         this.pages = new Array(0);
-        this.upcoming();
+        this.upcoming(1);
         this.isGTxs = window.innerWidth > 767;
     };
     FilmsListComponent.prototype.newPage = function (clicked_page) {
@@ -45,7 +50,6 @@ var FilmsListComponent = (function () {
         var _this = this;
         this.mvs.getUpcomings(page)
             .subscribe(function (data) {
-            console.log(data);
             if (!_this.pages[0]) {
                 _this.pages = new Array(data.total_pages);
             }
@@ -69,10 +73,6 @@ var FilmsListComponent = (function () {
             });
         }
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], FilmsListComponent.prototype, "config", void 0);
     FilmsListComponent = __decorate([
         core_1.Component({
             selector: 'fl-films',

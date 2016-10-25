@@ -2,6 +2,7 @@ import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 import "rxjs/Rx";
 
+
 @Injectable()
 export class MovieService {
 
@@ -9,7 +10,7 @@ export class MovieService {
 
     constructor(private http: Http){}
 
-    getConfig() {
+    getConfig(){
         return this.http.get('https://api.themoviedb.org/3/configuration?' + this.apiKey)
                         .map(data => JSON.parse(data['_body']))
 
@@ -28,4 +29,11 @@ export class MovieService {
         return this.http.get('https://api.themoviedb.org/3/search/movie?'+this.apiKey+'&query='+title+'&page='+page)
                         .map(data => JSON.parse(data['_body']))
     }
+
+
+    getDetails(id: number) {
+        return this.http.get('https://api.themoviedb.org/3/movie/'+id+'?'+this.apiKey)
+                        .map(data => JSON.parse(data['_body']))
+    }
+
 }

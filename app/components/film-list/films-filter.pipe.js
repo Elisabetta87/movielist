@@ -1,3 +1,4 @@
+/*
 import {PipeTransform, Pipe} from "@angular/core";
 //import {MovieService} from "./movie.service";
 import {getFilmByTitle} from "./films-list.component";
@@ -14,4 +15,5 @@ export class FilmFilterPipe implements PipeTransform {
     }
 }
 
-
+*/
+//# sourceMappingURL=films-filter.pipe.js.map

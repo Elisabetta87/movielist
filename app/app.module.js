@@ -11,12 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
-var films_list_component_1 = require("./films/films-list.component");
+var films_list_component_1 = require("./components/film-list/films-list.component");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var movie_service_1 = require("./services/movie.service");
-var films_filter_pipe_1 = require("./films/films-filter.pipe");
-var star_component_1 = require("./shared/star.component");
+var films_detail_component_1 = require("./components/film-details/films-detail.component");
+var app_routing_1 = require("./app.routing");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,13 +26,13 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
                 forms_1.FormsModule,
-                forms_1.ReactiveFormsModule
+                forms_1.ReactiveFormsModule,
+                app_routing_1.routing
             ],
             declarations: [
                 app_component_1.AppComponent,
                 films_list_component_1.FilmsListComponent,
-                films_filter_pipe_1.FilmFilterPipe,
-                star_component_1.StartComponent
+                films_detail_component_1.FilmDetailComponent
             ],
             providers: [
                 movie_service_1.MovieService

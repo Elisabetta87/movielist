@@ -1,0 +1,105 @@
+.container-fluid > .row{
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
+
+ul {
+  list-style-type: none;
+  margin-top: 45px;
+
+}
+
+h4 {
+    padding: 10px 15px;
+    background-color: #f5f5f1;
+    border-bottom: 1px solid #cecece;
+    margin: 12px 0;
+    position: relative;
+    top: -12px;
+}
+
+.small-poster {
+    display: inline-block;
+    float: left;
+    margin-right: 16px;
+}
+
+.box-info {
+    margin: 0;
+    padding-bottom: 12px;
+    contain: content;
+}
+
+.general-info-box {
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+li {
+    background-color: #ffffff;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 12px;
+}
+
+nav{
+    background-color: #365CAD;
+    color: #fff;
+}
+
+label{
+    line-height: 30px;
+}
+.form-group{
+    margin-bottom: 0;
+}
+input{
+    color: #000;
+
+}
+input#searchByTitle {
+    outline: none;
+}
+
+.header-logo {
+    height: 50px;
+}
+
+.no-cover {
+    width: 154px;
+    height: 231px;
+    background-color: #365CAD;
+    display: inline-block;
+    float: left;
+    margin-right: 16px;
+}
+
+h6 {
+    text-align: center;
+    margin: 0px auto;
+    position: relative;
+    top: 40%;
+    bottom: 50%;
+    color: #ffffff;
+}
+
+.list-pages {
+    margin-top: 3px;
+}
+
+.number-pages {
+    margin-right: 2px;
+}
+
+
+
+
+
+
+
+@media (min-width: 768px){
+    .header-logo {
+        height: 70px;
+    }
+}

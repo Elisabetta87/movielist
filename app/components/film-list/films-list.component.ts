@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Http} from "@angular/http";
+import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
-import {MovieService} from "../services/movie.service";
 
 
 @Component({
@@ -13,8 +12,7 @@ import {MovieService} from "../services/movie.service";
 
 export class FilmsListComponent implements OnInit {
 
-    @Input() config:string;
-
+    config:{key:any}
     pageTitle: string = 'Film List';
     films: any[];
     // pages: it's an array of array, where each inxed represent a page number, and the value a list of film for that page number
@@ -24,16 +22,21 @@ export class FilmsListComponent implements OnInit {
     currPageIndex:number;
     currLanguage = 'en-EN';
     isUpcoming = true;
-    listFilter: string;
     isGTxs: boolean;
     isStillUpcoming:boolean = true;
 
     constructor(private mvs: MovieService){}
 
     ngOnInit(){
+
+        this.mvs.getConfig()
+            .subscribe(data => {
+                this.config = data;
+        });
+        
         this.currPageIndex = 0;
         this.pages = new Array(0);
-        this.upcoming();
+        this.upcoming(1);
         this.isGTxs = window.innerWidth > 767;
     }
 
@@ -58,7 +61,6 @@ export class FilmsListComponent implements OnInit {
     upcoming(page: number) {
             this.mvs.getUpcomings(page)
                     .subscribe(data => {
-                        console.log(data);
                         if (!this.pages[0]) {//if that array have not been initialized yet
                             this.pages = new Array(data.total_pages);
                         }
@@ -66,7 +68,7 @@ export class FilmsListComponent implements OnInit {
                         if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
                             this.pages[this.currPageIndex] = data.results;
                         }
-            });
+            })
 
     }
 

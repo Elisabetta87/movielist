@@ -32,6 +32,10 @@ var MovieService = (function () {
         return this.http.get('https://api.themoviedb.org/3/search/movie?' + this.apiKey + '&query=' + title + '&page=' + page)
             .map(function (data) { return JSON.parse(data['_body']); });
     };
+    MovieService.prototype.getDetails = function (id) {
+        return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?' + this.apiKey)
+            .map(function (data) { return JSON.parse(data['_body']); });
+    };
     MovieService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

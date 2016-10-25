@@ -9,26 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-require("rxjs/Rx");
-var movie_service_1 = require("./services/movie.service");
 var AppComponent = (function () {
-    function AppComponent(mvs) {
-        var _this = this;
-        this.mvs = mvs;
-        this.pageTitle = 'My Film List';
-        this.myname = "Elisa";
-        this.mvs.getConfig()
-            .subscribe(function (data) {
-            console.log(data);
-            _this.config = data;
-        });
+    function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'fl-app',
-            template: " \n        <div>\n            <fl-films [config]=\"config\"></fl-films>      \n        </div>\n    "
+            template: " \n        <div>\n            <router-outlet></router-outlet>\n        </div>\n    "
         }), 
-        __metadata('design:paramtypes', [movie_service_1.MovieService])
+        __metadata('design:paramtypes', [])
     ], AppComponent);
     return AppComponent;
 }());

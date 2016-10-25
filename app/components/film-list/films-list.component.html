@@ -1,0 +1,52 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-sm-2">
+                <img src="app/assets/images/logo.png" class="header-logo">
+            </div>
+            <div class="col-xs-8 col-sm-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-4 hidden-xs">
+                            <label for="searchByTitle">Search by </label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12" style="padding-left: 0">
+                            <input class="form-control"
+                                   placeholder="{{isGTxs ? 'title' : 'Search by title'}}"
+                                   type="text"
+                                   id="searchByTitle" name="searchByTitle"
+                                   [(ngModel)]="searchByTitle"
+                                   (keyup)="sendSearch(null, $event)"
+                            />
+
+                          <!--  <input type="number" min="1970" max="2016"  />-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+     <ul class="list-group">
+        <li class="list-group-item" *ngFor="let film of pages[currPageIndex]" class="{{film.id}}">
+            <div class="box-info">
+                <h4 class="date">{{film.release_date ? (film.release_date | date: 'longDate') : "No Date Available"}}</h4>
+                <div class="general-info-box">
+                    <div *ngIf="!film.poster_path" class="no-cover"><h6>{{film.title}}</h6></div>
+                    <img class="small-poster" *ngIf="film.poster_path" [src]="config.images.base_url + config.images.poster_sizes[1] + film.poster_path">
+                    <h3>{{film.title}}</h3>
+                    <p>{{film.overview}}</p>
+                    <a [routerLink]="['/details', film.id]" >Read more...</a>
+                </div>
+            </div>
+        </li>
+     </ul>
+</div>
+<div class="text-center">
+    <ul class="pagination list-pages">
+        <li>
+            <a class="number-pages" *ngFor="let page of pages; let i_pag = index" (click)="newPage(i_pag)" [class]="currPageIndex == i_pag ? 'active' : ''">{{i_pag+1}}</a>
+        </li>
+    </ul>
+</div>

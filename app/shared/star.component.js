@@ -9,22 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var StartComponent = (function () {
-    function StartComponent() {
+var StarComponent = (function () {
+    function StarComponent() {
         this.rating = 4;
     }
-    StartComponent.prototype.ngOnChanges = function () {
+    StarComponent.prototype.ngOnChanges = function () {
         this.starWidth = this.rating * 86 / 5;
     };
-    StartComponent = __decorate([
+    StarComponent = __decorate([
         core_1.Component({
             selector: 'fl-star',
             templateUrl: 'app/shared/star.component.html',
             styleUrls: ['app/shared/star.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], StartComponent);
-    return StartComponent;
+    ], StarComponent);
+    return StarComponent;
 }());
-exports.StartComponent = StartComponent;
+exports.StarComponent = StarComponent;
 //# sourceMappingURL=star.component.js.map
