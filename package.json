@@ -1,7 +1,7 @@
 {
-    "name": "product-management",
+    "name": "film-list",
     "version": "1.0.0",
-    "author": "Deborah Kurata",
+    "author": "Elisa",
     "description": "Package for the Acme Product Management sample application",
     "scripts": {
         "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",

@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
+import {Router, Route, ActivatedRoute} from "@angular/router";
 import "rxjs/Rx";
 
 
@@ -25,7 +26,7 @@ export class FilmsListComponent implements OnInit {
     isGTxs: boolean;
     isStillUpcoming:boolean = true;
 
-    constructor(private mvs: MovieService){}
+    constructor(private mvs: MovieService, private route: ActivatedRoute){}
 
     ngOnInit(){
 
@@ -36,7 +37,13 @@ export class FilmsListComponent implements OnInit {
         
         this.currPageIndex = 0;
         this.pages = new Array(0);
-        this.upcoming(1);
+
+        if ( this.route.queryParams['value'].title ) {
+            this.searchByTitle = this.route.queryParams['value'].title;
+            this.sendSearch(1);
+        } else {
+            this.upcoming(1);
+        }
         this.isGTxs = window.innerWidth > 767;
     }
 
@@ -73,7 +80,7 @@ export class FilmsListComponent implements OnInit {
     }
 
     sendSearch(page:number, event?:any){
-        if ( page || event.key == 'Enter'){
+        if ( page || event.key == 'Enter' || event.type == 'click'){
             this.isStillUpcoming = false;
             this.mvs.getFilmByTitle(this.searchByTitle, page)
                 .subscribe(data => {
@@ -87,7 +94,7 @@ export class FilmsListComponent implements OnInit {
                 })
         }
     }
-
+    
 }
 
 

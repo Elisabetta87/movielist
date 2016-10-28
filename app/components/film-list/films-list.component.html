@@ -7,10 +7,10 @@
             <div class="col-xs-8 col-sm-6">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <div class="col-xs-4 hidden-xs">
+                        <div class="col-sm-3 hidden-xs">
                             <label for="searchByTitle">Search by </label>
                         </div>
-                        <div class="col-sm-8 col-xs-12" style="padding-left: 0">
+                        <div class="col-sm-7 col-xs-10" style="padding-left: 0">
                             <input class="form-control"
                                    placeholder="{{isGTxs ? 'title' : 'Search by title'}}"
                                    type="text"
@@ -20,6 +20,12 @@
                             />
 
                           <!--  <input type="number" min="1970" max="2016"  />-->
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <button type="submit"
+                                    class="btn btn-default glyphicon glyphicon-search"
+                                    (click)="sendSearch(null, $event)"
+                            ></button>
                         </div>
                     </div>
                 </form>
@@ -40,6 +46,9 @@
                     <a [routerLink]="['/details', film.id]" >Read more...</a>
                 </div>
             </div>
+        </li>
+        <li>
+
         </li>
      </ul>
 </div>

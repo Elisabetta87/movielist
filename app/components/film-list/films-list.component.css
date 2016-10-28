@@ -93,13 +93,25 @@ h6 {
 }
 
 
+.btn-default {
+    height: 34px;
+    width: 40px;
+    background-color: #ffffff;
+    border:#365CAD;
+    margin-left: -25px;
+    border-style: none;
+}
 
-
-
+.glyphicon-search {
+    color: #365CAD;
+}
 
 
 @media (min-width: 768px){
     .header-logo {
         height: 70px;
+    }
+    .btn-default {
+        margin-left: 0px;
     }
 }

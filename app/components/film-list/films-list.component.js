@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var movie_service_1 = require("../../services/movie.service");
+var router_1 = require("@angular/router");
 require("rxjs/Rx");
 var FilmsListComponent = (function () {
-    function FilmsListComponent(mvs) {
+    function FilmsListComponent(mvs, route) {
         this.mvs = mvs;
+        this.route = route;
         this.pageTitle = 'Film List';
         this.currLanguage = 'en-EN';
         this.isUpcoming = true;
@@ -27,7 +29,13 @@ var FilmsListComponent = (function () {
         });
         this.currPageIndex = 0;
         this.pages = new Array(0);
-        this.upcoming(1);
+        if (this.route.queryParams['value'].title) {
+            this.searchByTitle = this.route.queryParams['value'].title;
+            this.sendSearch(1);
+        }
+        else {
+            this.upcoming(1);
+        }
         this.isGTxs = window.innerWidth > 767;
     };
     FilmsListComponent.prototype.newPage = function (clicked_page) {
@@ -60,7 +68,7 @@ var FilmsListComponent = (function () {
     };
     FilmsListComponent.prototype.sendSearch = function (page, event) {
         var _this = this;
-        if (page || event.key == 'Enter') {
+        if (page || event.key == 'Enter' || event.type == 'click') {
             this.isStillUpcoming = false;
             this.mvs.getFilmByTitle(this.searchByTitle, page)
                 .subscribe(function (data) {
@@ -80,7 +88,7 @@ var FilmsListComponent = (function () {
             templateUrl: 'films-list.component.html',
             styleUrls: ['films-list.component.css']
         }), 
-        __metadata('design:paramtypes', [movie_service_1.MovieService])
+        __metadata('design:paramtypes', [movie_service_1.MovieService, router_1.ActivatedRoute])
     ], FilmsListComponent);
     return FilmsListComponent;
 }());

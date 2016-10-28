@@ -36,6 +36,18 @@ var MovieService = (function () {
         return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?' + this.apiKey)
             .map(function (data) { return JSON.parse(data['_body']); });
     };
+    MovieService.prototype.getReview = function (id) {
+        return this.http.get('https://api.themoviedb.org/3/movie/' + id + '/reviews?' + this.apiKey)
+            .map(function (data) { return JSON.parse(data['_body']); });
+    };
+    MovieService.prototype.getRecommendations = function (id) {
+        return this.http.get('https://api.themoviedb.org/3/movie/' + id + '/recommendations?' + this.apiKey)
+            .map(function (data) { return JSON.parse(data['_body']); });
+    };
+    MovieService.prototype.getTrailer = function (id) {
+        return this.http.get('https://api.themoviedb.org/3/movie/' + id + '/videos?' + this.apiKey)
+            .map(function (data) { return JSON.parse(data['_body']); });
+    };
     MovieService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

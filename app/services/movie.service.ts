@@ -36,4 +36,23 @@ export class MovieService {
                         .map(data => JSON.parse(data['_body']))
     }
 
+
+    getReview(id:number) {
+        return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/reviews?'+this.apiKey)
+            .map(data => JSON.parse(data['_body']))
+    }
+
+
+    getRecommendations(id:number) {
+        return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/recommendations?'+this.apiKey)
+            .map(data => JSON.parse(data['_body']))
+    }
+
+
+
+    getTrailer(id: number) {
+        return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/videos?'+this.apiKey)
+                        .map(data => JSON.parse(data['_body']))
+    }
+
 }
