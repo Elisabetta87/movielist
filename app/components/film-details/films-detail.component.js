@@ -13,30 +13,27 @@ var router_1 = require("@angular/router");
 var movie_service_1 = require("../../services/movie.service");
 require("rxjs/Rx");
 var FilmDetailComponent = (function () {
-    //dangerousUrl: any;
-    //trustedUrl:any;
     function FilmDetailComponent(mvs, route, router) {
         this.mvs = mvs;
         this.route = route;
         this.router = router;
         this.isUpcoming = true;
         this.isStillUpcoming = true;
-        this.video = 'http://www.youtube.com/embed/';
     }
     FilmDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.getDetails(this.route.snapshot.params['id']);
-        this.getReview(this.route.snapshot.params['id']);
-        this.getRecommendations(this.route.snapshot.params['id']);
-        //this.getTrailer(this.route.snapshot.params['id']);
-        this.mvs.getConfig()
+        this.router.events
             .subscribe(function (data) {
-            _this.config = data;
+            if (data.constructor.name == 'NavigationEnd') {
+                _this.mvs.getConfig()
+                    .subscribe(function (data) {
+                    _this.config = data;
+                    _this.getDetails(_this.route.snapshot.params['id']);
+                    _this.getReview(_this.route.snapshot.params['id']);
+                    _this.getRecommendations(_this.route.snapshot.params['id']);
+                });
+            }
         });
-        this.currPageIndex = 0;
-        this.pages = new Array(0);
-        this.upcoming(1);
-        this.isGTxs = window.innerWidth > 767;
     };
     FilmDetailComponent.prototype.onBack = function () {
         this.router.navigate(['']);
@@ -54,7 +51,19 @@ var FilmDetailComponent = (function () {
         this.mvs.getRecommendations(id)
             .subscribe(function (recommendations) {
             _this.recommendations = recommendations;
+            _this.scrollTopZero(15);
         });
+    };
+    FilmDetailComponent.prototype.scrollTopZero = function (speed) {
+        var count = 0;
+        var scroll = setInterval(function () {
+            console.log(count++);
+            var pixels = (window.scrollY) / 100 * speed;
+            window.scrollTo(0, window.scrollY - pixels);
+            if (window.scrollY == 0) {
+                clearInterval(scroll);
+            }
+        }, speed);
     };
     FilmDetailComponent.prototype.getReview = function (id) {
         var _this = this;

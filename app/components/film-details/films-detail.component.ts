@@ -14,7 +14,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 
 
 export class FilmDetailComponent implements OnInit {
-    details: string;//chiedere a fulvio non e' una string ma un oggetto giusto??
+    details: string;
     reviews: {key:any};
     config:{key:any};
     recommendations:{key:any};
@@ -22,32 +22,29 @@ export class FilmDetailComponent implements OnInit {
     searchByTitle: string;//ngModel
     currPageIndex:number;
     isUpcoming = true;
-    isGTxs: boolean;
-    isStillUpcoming:boolean = true
-    video: string = 'http://www.youtube.com/embed/';
-    //dangerousUrl: any;
-    //trustedUrl:any;
-
+    isStillUpcoming:boolean = true;
 
     constructor(private mvs: MovieService,
                 private route: ActivatedRoute,
                 private router: Router
-                //private sanitizer: DomSanitizer
-    ) {}
+                ) {
+
+    }
 
     ngOnInit() {
-        this.getDetails(this.route.snapshot.params['id']);
-        this.getReview(this.route.snapshot.params['id']);
-        this.getRecommendations(this.route.snapshot.params['id']);
-        //this.getTrailer(this.route.snapshot.params['id']);
-        this.mvs.getConfig()
+        this.router.events
             .subscribe(data => {
-                this.config = data;
-            });
-        this.currPageIndex = 0;
-        this.pages = new Array(0);
-        this.upcoming(1);
-        this.isGTxs = window.innerWidth > 767;
+            if (data.constructor.name == 'NavigationEnd') {
+                this.mvs.getConfig()
+                    .subscribe(data => {
+                        this.config = data;
+                        this.getDetails(this.route.snapshot.params['id']);
+                        this.getReview(this.route.snapshot.params['id']);
+                        this.getRecommendations(this.route.snapshot.params['id']);
+                    });
+            }
+
+        });
     }
 
 
@@ -68,11 +65,22 @@ export class FilmDetailComponent implements OnInit {
     getRecommendations(id:number) {
         this.mvs.getRecommendations(id)
             .subscribe(recommendations => {
-                this.recommendations = recommendations;
+               this.recommendations = recommendations;
+               this.scrollTopZero(15);
             })
     }
 
-
+    scrollTopZero(speed:number){
+        let count = 0;
+        let scroll = setInterval(() => {
+            console.log(count++);
+                let pixels = (window.scrollY)/100 * speed;
+                window.scrollTo(0,window.scrollY - pixels);
+                if (window.scrollY==0){
+                    clearInterval(scroll);
+                }
+        },speed);
+    }
 
     getReview(id:number) {
         this.mvs.getReview(id)

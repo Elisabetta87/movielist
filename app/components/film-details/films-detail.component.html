@@ -1,20 +1,17 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 col-sm-2">
+            <div class="col-xs-3 col-sm-2">
                 <img src="app/assets/images/logo.png" class="header-logo">
             </div>
-            <div class="col-xs-8 col-sm-6">
+            <div class="col-xs-9 col-sm-6">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <div class="col-sm-3 hidden-xs">
-                            <label for="searchByTitle">Search by </label>
-                        </div>
                         <div class="col-sm-7 col-xs-10" style="padding-left: 0">
                             <input class="form-control"
-                                   placeholder="{{isGTxs ? 'title' : 'Search by title'}}"
+                                   placeholder="Search by title"
                                    type="text"
-                                   id="searchByTitle" name="searchByTitle"
+                                   id="searchByTitle"  name="searchByTitle"
                                    [(ngModel)]="searchByTitle"
                                    (keyup)="sendSearch(null, $event)"
                             />
@@ -36,29 +33,20 @@
 <div class="container">
     <ul class="list-group">
         <li class="list-group-item my-info" *ngIf="details">
-            <div class="box-info">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h3 class="title">{{details.title}}</h3>
-                    </div>
-                </div>
+            <div class="box-info" *ngIf="details.title">
+                   <h3 class="title">{{details.title}}</h3>
                 <div class="general-info-box">
-                    <div class="row">
-                        <div *ngIf="!details.poster_path" class="no-cover col-xs-12 col-sm-4">
-                            <h6>{{details.title}}</h6>
+                        <div *ngIf="!details.poster_path" class="no-cover">
+                            <h6>{{details.title ? details.title : ''}}</h6>
                         </div>
-                        <div class="col-xs-12 col-sm-6">
                             <img class="poster" *ngIf="details.poster_path && config" [src]="config.images.base_url + config.images.poster_sizes[3] + details.poster_path">
-                        </div>
-                        <div class="col-sm-6">
                             <h5>Release date {{details.release_date ? (details.release_date | date: 'mediumDate') : " "}}</h5>
-                            <div>{{details.genres[0].name}} {{details.runtime != 0 ? ('| ' + details.runtime + ' mins') : ''}}</div>
+                            <div *ngIf="details.genres[0]">{{details.genres[0].name ? details.genres[0].name : ''}} {{details.runtime ? ('| ' + details.runtime + ' mins') : ''}}</div>
                             <p>{{details.overview ? details.overview : ''}}</p>
                             <div class="quote" *ngIf="details.tagline">
                                 <q>{{details.tagline}}</q>
                             </div>
-                        </div>
-                    </div>
+
                     <!--<div class="review" *ngIf="reviews && reviews.results.length != 0">-->
                     <div class="row" *ngIf="reviews">
                         <div class="review col-xs-12" *ngFor="let review of reviews.results">
@@ -73,22 +61,27 @@
                     <iframe class="e2e-iframe-trusted-src" width="640" height="360" [src]="trustedUrl.changingThisBreaksApplicationSecurity"></iframe>
                 </div>-->
             </div>
-            <div class="box-info suggested" *ngIf="recommendations">
-<!--
-                <h4 class="title">You may also like</h4>
--->
-                <div class="general-info-box" *ngIf="recommendations.results[0]">
-                    <!--
-                        Check if  recommendations.results[0] exist FIRST, not recommendations.results[0].poster_path.
-                        U can understand where is the problem from the message error " Cannot read property 'poster_path' " so che OBJECT that contains
-                        poster_path is undefined.
-                        You should use a DIV as safe-wrapper like <div *ngIf="recommendations.results.length"> and inside here all recomended stuff </div>
-                    -->
-                    <div *ngIf="recommendations.results.length && !recommendations.results[0].poster_path" class="no-cover"><h6>{{recommendations.results[0].title}}</h6></div>
-                    <img class="poster" *ngIf="recommendations.results.length && recommendations.results[0].poster_path && config" [src]="config.images.base_url + config.images.poster_sizes[0] + recommendations.results[0].poster_path">
-                    <h3>{{recommendations.results[0].title ? recommendations.results[0].title : ''}}</h3>
-                    <h5>{{recommendations.results[0].release_date ? (recommendations.results[0].release_date | date: 'longDate') : "No Date Available"}}</h5>
-                    <p>{{recommendations.results[0].overview ? recommendations.results[0].overview : ''}}</p>
+            <div *ngIf="recommendations?.results.length">
+                <div class="box-info suggested"  *ngFor="let result of recommendations.results">
+    <!--
+                    <h4 class="title">You may also like</h4>
+    -->
+                    <div class="general-info-box">
+                        <!--
+                            Check if  recommendations.results[0] exist FIRST, not recommendations.results[0].poster_path.
+                            U can understand where is the problem from the message error " Cannot read property 'poster_path' " so che OBJECT that contains
+                            poster_path is undefined.
+                            You should use a DIV as safe-wrapper like <div *ngIf="recommendations.results.length"> and inside here all recomended stuff </div>
+                        -->
+                        <div *ngIf="!result.poster_path" class="no-cover"><h6>{{result.title}}</h6></div>
+                        <img class="poster" *ngIf="result.poster_path && config" [src]="config.images.base_url + config.images.poster_sizes[0] + result.poster_path">
+                        <h3>{{result.title ? result.title : ''}}</h3>
+                        <h5>{{result.release_date ? (result.release_date | date: 'longDate') : "No Date Available"}}</h5>
+                        <div *ngIf="result.overview">
+                            <p>{{result.overview.split(' ').slice(0, 20).join(' ')}} ...</p>
+                            <a [routerLink]="['/details', result.id]" >Read more</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </li>
