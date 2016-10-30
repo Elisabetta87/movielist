@@ -9,17 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var WelcomeComponent = (function () {
-    function WelcomeComponent() {
-        this.pageTitle = 'Welcome';
+var StarComponent = (function () {
+    function StarComponent() {
+        this.rating = 4;
     }
-    WelcomeComponent = __decorate([
+    StarComponent.prototype.ngOnChanges = function () {
+        this.starWidth = this.rating * 86 / 5;
+    };
+    StarComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/home/welcome.component.html'
+            selector: 'fl-star',
+            templateUrl: '..//shared/star.component.html',
+            styleUrls: ['..//shared/star.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], WelcomeComponent);
-    return WelcomeComponent;
+    ], StarComponent);
+    return StarComponent;
 }());
-exports.WelcomeComponent = WelcomeComponent;
-//# sourceMappingURL=welcome.component.js.map
+exports.StarComponent = StarComponent;
+//# sourceMappingURL=star.component.js.map

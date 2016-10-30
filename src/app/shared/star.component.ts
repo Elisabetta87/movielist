@@ -3,8 +3,8 @@ import {Component, OnChanges} from '@angular/core';
 
 @Component({
     selector: 'fl-star',
-    templateUrl: 'app/shared/star.component.html',
-    styleUrls: ['app/shared/star.component.css']
+    templateUrl: '..//shared/star.component.html',
+    styleUrls: ['..//shared/star.component.css']
 })
 
 export class StarComponent implements OnChanges {
