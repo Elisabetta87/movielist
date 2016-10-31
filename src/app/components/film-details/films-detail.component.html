@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-3 col-sm-2">
-                <img src="app/assets/images/logo.png" class="header-logo">
+                <img src="../../assets/images/logo.png" class="header-logo">
             </div>
             <div class="col-xs-9 col-sm-6">
                 <form class="form-horizontal">
@@ -14,9 +14,9 @@
                                    id="searchByTitle"  name="searchByTitle"
                                    [(ngModel)]="searchByTitle"
                                    (keyup)="sendSearch(null, $event)"
+                                   required
                             />
 
-                            <!--  <input type="number" min="1970" max="2016"  />-->
                         </div>
                         <div class="col-sm-2 col-xs-2">
                             <div
@@ -32,7 +32,7 @@
 </nav>
 <div class="container">
     <ul class="list-group">
-        <li class="list-group-item my-info" *ngIf="details">
+        <li class="list-group-item my-info" *ngIf="details && config">
             <div class="box-info" *ngIf="details.title">
                    <h3 class="title">{{details.title}}</h3>
                 <div class="general-info-box">
@@ -61,18 +61,10 @@
                     <iframe class="e2e-iframe-trusted-src" width="640" height="360" [src]="trustedUrl.changingThisBreaksApplicationSecurity"></iframe>
                 </div>-->
             </div>
-            <div *ngIf="recommendations?.results.length">
+            <div *ngIf="recommendations?.results.length && config">
+                <h3 class="show-recommendations">Similar movies recommendations</h3>
                 <div class="box-info suggested"  *ngFor="let result of recommendations.results">
-    <!--
-                    <h4 class="title">You may also like</h4>
-    -->
                     <div class="general-info-box">
-                        <!--
-                            Check if  recommendations.results[0] exist FIRST, not recommendations.results[0].poster_path.
-                            U can understand where is the problem from the message error " Cannot read property 'poster_path' " so che OBJECT that contains
-                            poster_path is undefined.
-                            You should use a DIV as safe-wrapper like <div *ngIf="recommendations.results.length"> and inside here all recomended stuff </div>
-                        -->
                         <div *ngIf="!result.poster_path" class="no-cover"><h6>{{result.title}}</h6></div>
                         <img class="poster" *ngIf="result.poster_path && config" [src]="config.images.base_url + config.images.poster_sizes[0] + result.poster_path">
                         <h3>{{result.title ? result.title : ''}}</h3>
@@ -86,7 +78,7 @@
             </div>
         </li>
     </ul>
-    <a class="btn btn btn-default" (click)="onBack()" style="width: 80px">
+    <a class="btn btn btn-default back" (click)="onBack()" style="width: 80px">
         <i class="glyphicon glyphicon-chevron-left"></i> Back
     </a>
 </div>

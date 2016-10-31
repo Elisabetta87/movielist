@@ -7,9 +7,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
-    moduleId: module.id,
-    templateUrl: 'films-detail.component.html',
-    styleUrls: ['films-detail.component.css']
+    templateUrl: './films-detail.component.html',
+    styleUrls: ['./films-detail.component.scss']
 })
 
 
@@ -131,7 +130,7 @@ export class FilmDetailComponent implements OnInit {
         // }
 
         if ( event.key == 'Enter' || event.type == 'click' ){
-            this.router.navigate([''], {queryParams: {title: this.searchByTitle} });
+            this.router.navigate([''], {queryParams: {title: this.searchByTitle}});
         }
     }
 

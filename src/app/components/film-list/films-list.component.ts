@@ -6,9 +6,8 @@ import "rxjs/Rx";
 
 @Component({
     selector: 'fl-films',
-    moduleId: module.id,
-    templateUrl: 'films-list.component.html',
-    styleUrls: ['films-list.component.css']
+    templateUrl: './films-list.component.html',
+    styleUrls: ['./films-list.component.scss']
 })
 
 export class FilmsListComponent implements OnInit {
@@ -33,6 +32,7 @@ export class FilmsListComponent implements OnInit {
         this.mvs.getConfig()
             .subscribe(data => {
                 this.config = data;
+                console.log(this.config);
         });
         
         this.currPageIndex = 0;
@@ -82,9 +82,10 @@ export class FilmsListComponent implements OnInit {
     sendSearch(page:number, event?:any){
         if ( page || event.key == 'Enter' || event.type == 'click'){
             this.isStillUpcoming = false;
+            if (this.searchByTitle != undefined) {
             this.mvs.getFilmByTitle(this.searchByTitle, page)
                 .subscribe(data => {
-                    if (!!event) {//if that array have not been initialized yet
+                    if (!!event && page != null) {//if that array have not been initialized yet
                         this.pages = new Array(data.total_pages);
                     }
 
@@ -92,7 +93,9 @@ export class FilmsListComponent implements OnInit {
                         this.pages[this.currPageIndex] = data.results;
                     }
                 })
+            }
         }
+
     }
     
 }

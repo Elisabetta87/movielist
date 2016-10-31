@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-3 col-sm-2">
-                <img src="app/assets/images/logo.png" class="header-logo">
+                <img src="../../assets/images/logo.png" class="header-logo">
             </div>
             <div class="col-xs-9 col-sm-6">
                 <form class="form-horizontal">
@@ -14,6 +14,7 @@
                                    id="searchByTitle" name="searchByTitle"
                                    [(ngModel)]="searchByTitle"
                                    (keyup)="sendSearch(null, $event)"
+                                   required
                             />
 
                           <!--  <input type="number" min="1970" max="2016"  />-->
@@ -39,7 +40,7 @@
                     <h3 class="visible-xs">{{film.title}}</h3>
                     <div *ngIf="!film.poster_path" class="no-cover"><h6>{{film.title}}</h6></div>
                     <div class="forMobile">
-                        <img class="small-poster" *ngIf="film.poster_path" [src]="config.images.base_url + config.images.poster_sizes[1] + film.poster_path">
+                        <img class="small-poster" *ngIf="film.poster_path && config" [src]="config.images.base_url + config.images.poster_sizes[1] + film.poster_path">
                     </div>
                     <h3 class="hidden-xs">{{film.title}}</h3>
                     <div *ngIf="film.overview">

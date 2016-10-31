@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
         <div>
             <router-outlet></router-outlet>
         </div>
-    `
+    `,
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
