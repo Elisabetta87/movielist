@@ -26,6 +26,7 @@ nav{
 
 .header-logo {
     height: 50px;
+    cursor: pointer;
 }
 
 
@@ -59,6 +60,8 @@ nav{
     background-color: #ffffff;
     border-bottom-right-radius: 20px;
     margin-bottom: 12px;
+    width: 100%;
+    display: inline-block;
 }
 
 .no-cover {

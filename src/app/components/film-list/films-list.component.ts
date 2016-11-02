@@ -24,6 +24,7 @@ export class FilmsListComponent implements OnInit {
     isUpcoming = true;
     isGTxs: boolean;
     isStillUpcoming:boolean = true;
+    errorMessage: string;
 
     constructor(private mvs: MovieService, private route: ActivatedRoute){}
 
@@ -32,7 +33,6 @@ export class FilmsListComponent implements OnInit {
         this.mvs.getConfig()
             .subscribe(data => {
                 this.config = data;
-                console.log(this.config);
         });
         
         this.currPageIndex = 0;
@@ -65,7 +65,7 @@ export class FilmsListComponent implements OnInit {
         }
     }
 
-    upcoming(page: number) {
+    upcoming(page: number) { 
             this.mvs.getUpcomings(page)
                     .subscribe(data => {
                         if (!this.pages[0]) {//if that array have not been initialized yet
@@ -82,17 +82,20 @@ export class FilmsListComponent implements OnInit {
     sendSearch(page:number, event?:any){
         if ( page || event.key == 'Enter' || event.type == 'click'){
             this.isStillUpcoming = false;
-            if (this.searchByTitle != undefined) {
-            this.mvs.getFilmByTitle(this.searchByTitle, page)
-                .subscribe(data => {
-                    if (!!event && page != null) {//if that array have not been initialized yet
-                        this.pages = new Array(data.total_pages);
-                    }
-
-                    if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
-                        this.pages[this.currPageIndex] = data.results;
-                    }
-                })
+            if (this.searchByTitle) {
+                this.mvs.getFilmByTitle(this.searchByTitle, page)
+                    .subscribe(data => {
+                        if (data.results.length != 0) {
+                            if (!!event) {//if that array have not been initialized yet
+                                this.pages = new Array(data.total_pages);
+                            }
+                            if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
+                                this.pages[this.currPageIndex] = data.results;
+                            }
+                        } else {
+                            this.errorMessage = 'No results found. Please enter a valid title.';
+                        }
+                    })
             }
         }
 

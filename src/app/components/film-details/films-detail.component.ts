@@ -72,7 +72,7 @@ export class FilmDetailComponent implements OnInit {
     scrollTopZero(speed:number){
         let count = 0;
         let scroll = setInterval(() => {
-            console.log(count++);
+            //console.log(count++);
                 let pixels = (window.scrollY)/100 * speed;
                 window.scrollTo(0,window.scrollY - pixels);
                 if (window.scrollY==0){

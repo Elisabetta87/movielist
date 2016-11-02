@@ -33,8 +33,11 @@
 </nav>
 <div class="container">
      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let film of pages[currPageIndex]" class="{{film.id}}">
+        <li class="list-group-item all-film" *ngFor="let film of pages[currPageIndex]" class="{{film.id}}">
             <div class="box-info">
+                <div *ngIf="pages[currPageIndex] == 0">
+                    <h4>{{errorMessage}}</h4>
+                </div>
                 <h4 class="date">{{film.release_date ? (film.release_date | date: 'longDate') : "No Date Available"}}</h4>
                 <div class="general-info-box">
                     <h3 class="visible-xs">{{film.title}}</h3>
@@ -49,9 +52,6 @@
                     </div>
                 </div>
             </div>
-        </li>
-        <li>
-
         </li>
      </ul>
     <div class="text-center">

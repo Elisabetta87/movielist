@@ -28,6 +28,7 @@ export class MovieService {
     getFilmByTitle(title:string, page: number = 1) {
         return this.http.get('https://api.themoviedb.org/3/search/movie?'+this.apiKey+'&query='+title+'&page='+page)
                         .map(data => JSON.parse(data['_body']))
+                        //.debounce(1000)
     }
 
 
