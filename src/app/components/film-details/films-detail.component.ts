@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
 import {DomSanitizer} from "@angular/platform-browser";
+import * as moment from 'moment';
+
 
 
 
@@ -22,6 +24,7 @@ export class FilmDetailComponent implements OnInit {
     currPageIndex:number;
     isUpcoming = true;
     isStillUpcoming:boolean = true;
+    mymoment = moment;
 
     constructor(private mvs: MovieService,
                 private route: ActivatedRoute,

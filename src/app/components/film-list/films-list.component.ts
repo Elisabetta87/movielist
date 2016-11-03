@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
 import {Router, Route, ActivatedRoute} from "@angular/router";
+import * as moment from 'moment';
 import "rxjs/Rx";
 
 
@@ -25,7 +26,8 @@ export class FilmsListComponent implements OnInit {
     isGTxs: boolean;
     isStillUpcoming:boolean = true;
     errorMessage: string;
-
+    mymoment = moment;
+    
     constructor(private mvs: MovieService, private route: ActivatedRoute){}
 
     ngOnInit(){

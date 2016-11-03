@@ -12,6 +12,18 @@
     top: -12px;
 }
 
+.btn-info.back {
+    background-color: #CB564C;
+    border-color: #CB564C;
+    display: inline-block;
+    margin-top: 5px;
+
+    .fa-backward {
+        color: #ffffff;
+    }
+}
+
+
 ul {
     list-style-type: none;
     margin-top: 45px;
@@ -54,6 +66,7 @@ nav{
 .general-info-box {
     margin-left: 14px;
     margin-right: 14px;
+    display: inline-block;
 }
 
 .my-info {
@@ -119,7 +132,7 @@ h6 {
 
 @media (min-width: 768px){
     .header-logo {
-        height: 70px;
+        height: 55px;
     }
     .header-button {
         margin-left: 0px;
