@@ -1,20 +1,18 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
-import {DomSanitizer} from "@angular/platform-browser";
 import * as moment from 'moment';
 
 
-
-
-@Component({
-    templateUrl: './films-detail.component.html',
-    styleUrls: ['./films-detail.component.scss']
+@Component ({
+    templateUrl : './films-detail.component.html',
+    styleUrls   : ['./films-detail.component.scss']
 })
 
 
 export class FilmDetailComponent implements OnInit {
+
     details: string;
     reviews: {key:any};
     config:{key:any};
@@ -25,12 +23,14 @@ export class FilmDetailComponent implements OnInit {
     isUpcoming = true;
     isStillUpcoming:boolean = true;
     mymoment = moment;
+    chars:any[] = [];
+    person:{key:any};
+    
 
     constructor(private mvs: MovieService,
                 private route: ActivatedRoute,
                 private router: Router
                 ) {
-
     }
 
     ngOnInit() {
@@ -43,6 +43,7 @@ export class FilmDetailComponent implements OnInit {
                         this.getDetails(this.route.snapshot.params['id']);
                         this.getReview(this.route.snapshot.params['id']);
                         this.getRecommendations(this.route.snapshot.params['id']);
+                        this.getCharacters(this.route.snapshot.params['id']);
                     });
             }
 
@@ -116,6 +117,32 @@ export class FilmDetailComponent implements OnInit {
             })
 
     }
+
+
+
+    getCharacters(id:number) {
+        this.mvs.getCharacters(id)
+            .subscribe(char => {
+                this.chars = [];
+                for (let i=0; i<6; i++) {
+                    this.chars.push(char.cast[i]);
+                    this.getPerson(this.chars[i].id);
+                }
+                //console.log(this.getPerson(this.chars[0].id), this.chars[0].id);
+            })
+    }
+
+
+    getPerson(person_id:number) {
+        this.mvs.getPerson(person_id)
+            .subscribe(person => {
+                this.person = person;
+                // console.log(this.person['biography']);
+                //console.log(this.person.biography);
+            })
+    }
+
+
 
     sendSearch(page:number, event?:any){
         // if ( page || event.key == 'Enter' || event.type == 'click'){

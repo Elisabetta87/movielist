@@ -40,14 +40,28 @@ export class MovieService {
 
     getReview(id:number) {
         return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/reviews?'+this.apiKey)
-            .map(data => JSON.parse(data['_body']))
+                        .map(data => JSON.parse(data['_body']))
     }
 
 
     getRecommendations(id:number) {
         return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/recommendations?'+this.apiKey)
-            .map(data => JSON.parse(data['_body']))
+                        .map(data => JSON.parse(data['_body']))
     }
+
+
+
+    getCharacters(id:number) {
+        return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/credits?'+this.apiKey)
+                        .map(data => JSON.parse(data['_body']))
+    }
+
+
+    getPerson(person_id:number) {
+        return this.http.get('https://api.themoviedb.org/3/person/'+person_id+'?'+this.apiKey)
+                        .map(data => JSON.parse(data['_body']))
+    }
+
 
 
 

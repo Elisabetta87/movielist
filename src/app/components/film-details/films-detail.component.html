@@ -54,11 +54,9 @@
                                 <q>{{details.tagline}}</q>
                             </div>
 
-                    <!--<div class="review" *ngIf="reviews && reviews.results.length != 0">-->
+
                     <div class="row" *ngIf="reviews">
                         <div class="review col-xs-12" *ngFor="let review of reviews.results">
-                            <!--<h4>Review by {{reviews.results[0].author}}</h4>-->
-                            <!--<p>{{reviews.results[0].content}}</p>-->
                             <h4>Review by {{review.author}}</h4>
                             <p>{{review.content}}</p>
                         </div>
@@ -67,7 +65,21 @@
 <!--                <div class="video" width="640" height="360">
                     <iframe class="e2e-iframe-trusted-src" width="640" height="360" [src]="trustedUrl.changingThisBreaksApplicationSecurity"></iframe>
                 </div>-->
+                <div class="characters col-xs-12" *ngIf="chars">
+                    <h3 class="show-char">Top billed cast</h3>
+                    <div class="col-sm-6 col-md-4" *ngFor="let char of chars">
+                            <div class="thumbnail">
+                            <img class="img-thumbnail" style="height: 240px" *ngIf="char.profile_path && config" [src]="config.images.base_url + config.images.profile_sizes[1] + char.profile_path">
+                            <div class="caption text-center">
+                                <h4>{{char.name}}</h4>
+                                <h5>{{char.character}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
             <div *ngIf="recommendations?.results.length && config">
                 <h3 class="show-recommendations">Similar movies recommendations</h3>
                 <div class="box-info suggested"  *ngFor="let result of recommendations.results">
@@ -90,3 +102,4 @@
     </a>
 </div>
 
+<!--<modal-biography></modal-biography>-->

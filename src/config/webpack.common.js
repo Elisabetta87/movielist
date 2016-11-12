@@ -46,55 +46,6 @@ module.exports = {
                 //exclude : [/node_modules\/(?!bootstrap)/]
             },
             
-            // {
-            //     test: /\.(png|jpg|jp(e)g|gif|svg|woff|woff2|ttf|eot)$/,
-            //     loader: 'file',
-            //     exclude: /node_modules|bower_components/
-            // }
-
-
-
-            // {
-            //     test    : /.css$/,
-            //     loader  : 'raw',
-            //     exclude : [/nodule_modules/]
-            // }
-            // {
-            //     test: /\.css$/,
-            //     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-            // }
-
-            // Support for CSS as raw text
-            // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-            // all css in src/style will be bundled in an external css file
-            // {
-            //     test: /\.css$/,
-            //     exclude: helpers.root('src', 'app'),
-            //     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-            // },
-            // // all css required in src/app files will be merged in js files
-            // {
-            //     test: /\.css$/,
-            //     include: helpers.root('src', 'app'),
-            //     loader: 'raw!postcss'
-            // },
-            //
-            // // support for .scss files
-            // // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-            // // all css in src/style will be bundled in an external css file
-            // {
-            //     test: /\.scss$/,
-            //     exclude: helpers.root('src', 'app'),
-            //     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass')
-            // },
-            //
-            // // all css required in src/app files will be merged in js files
-            // {
-            //     test: /\.scss$/,
-            //     exclude: helpers.root('src', 'style'),
-            //     loader: 'raw!postcss!sass'
-            // }
-            
         ]
     },
 

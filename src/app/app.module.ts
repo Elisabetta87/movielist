@@ -5,10 +5,10 @@ import {FilmsListComponent} from "./components/film-list/films-list.component";
 import {HttpModule} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MovieService} from "./services/movie.service";
-import {FilmDetailComponent} from "./components/film-details/films-detail.component";
-import {routing} from "./app.routing";
+import {FilmDetailComponent} from './components/film-details/films-detail.component';
+import {routing} from './app.routing';
 import {ActivatedRoute} from "@angular/router";
-
+import {Ng2BootstrapModule} from "ng2-bootstrap/ng2-bootstrap";
 
 
 @NgModule({
