@@ -65,11 +65,12 @@
 <!--                <div class="video" width="640" height="360">
                     <iframe class="e2e-iframe-trusted-src" width="640" height="360" [src]="trustedUrl.changingThisBreaksApplicationSecurity"></iframe>
                 </div>-->
-                <div class="characters col-xs-12" *ngIf="cast">
+                <div class="characters col-xs-12" *ngIf="cast.length">
                     <h3 class="show-char">Top billed cast</h3>
                     <div class="col-sm-6 col-md-4" *ngFor="let char of cast">
                             <div class="thumbnail">
                                 <img (click)="showBiograhy(char)" class="img-thumbnail" style="height: 240px" *ngIf="char.profile_path && config" [src]="config.images.base_url + config.images.profile_sizes[1] + char.profile_path">
+                                <div class="no-photo" *ngIf="!char.profile_path"></div>
                                 <div class="caption text-center">
                                     <h4>{{char.name}}</h4>
                                     <h5>{{char.character}}</h5>
