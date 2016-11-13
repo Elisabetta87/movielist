@@ -7,7 +7,7 @@ const routes: Routes = [
     {path: 'details/:id', component: FilmDetailComponent, pathMatch: 'full'},
     {path: '', component: FilmsListComponent, pathMatch: 'full'},
     {path: '**', component: FilmsListComponent, pathMatch: 'full'}
-];
+    ];
 
 
 export const routing = RouterModule.forRoot(routes);

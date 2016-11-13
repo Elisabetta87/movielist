@@ -7,6 +7,7 @@ if ( process.env.ENV === 'production' ){
     enableProdMode()
 }
 
+//noinspection TypeScriptValidateTypes
 platformBrowserDynamic().bootstrapModule(AppModule);
 
 

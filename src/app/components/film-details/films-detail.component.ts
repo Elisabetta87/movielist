@@ -5,6 +5,7 @@ import "rxjs/Rx";
 import * as moment from 'moment';
 import {Observable} from "rxjs/Rx";
 import {ModalBiographyComponent} from "../ModalBiography/ModalBiography.component";
+import {Location} from "@angular/common";
 
 @Component ({
     template    : require('./films-detail.component.html'),
@@ -30,9 +31,11 @@ export class FilmDetailComponent implements OnInit {
     character:{key:any};
 
 
-    constructor(private mvs: MovieService,
-                private route: ActivatedRoute,
-                private router: Router
+
+    constructor(private mvs         : MovieService,
+                private route       : ActivatedRoute,
+                private router      : Router,
+                private _location   : Location
                 ) {
     }
 
@@ -56,7 +59,8 @@ export class FilmDetailComponent implements OnInit {
 
 
     onBack(): void {
-       this.router.navigate(['']);
+       //this.router.navigate(['']);
+        this._location.back();
     }
 
     
@@ -112,7 +116,7 @@ export class FilmDetailComponent implements OnInit {
         this.mvs.getUpcomings(page)
             .subscribe(data => {
                 if (!this.pages[0]) {//if that array have not been initialized yet
-                    this.pages = new Array(data.total_pages);
+                    this.pages = new Array(data['total_pages']);
                 }
 
                 if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
@@ -127,12 +131,15 @@ export class FilmDetailComponent implements OnInit {
         this.cast = new Array();
         this.mvs.getCast(movieId, numActors)
             .subscribe( arrObsActor => {
-                for (let i=0; i<arrObsActor.sources.length; i++){
-                    let character = arrObsActor.sources[i][1];
-                    arrObsActor.sources[i][0].subscribe(data => {
-                        data.character = character;
-                        this.cast.push(data);
-                    })
+                if (arrObsActor.sources) {
+                    for (let i=0; i<arrObsActor.sources.length; i++){
+                        let character = arrObsActor.sources[i][1];
+                        arrObsActor.sources[i][0].subscribe(data => {
+                            //console.log(data);
+                            data.character = character;
+                            this.cast.push(data);
+                        })
+                    }
                 }
 
             })
@@ -141,7 +148,6 @@ export class FilmDetailComponent implements OnInit {
 
     showBiograhy(char){
         this.character = char;
-        this.modal.modal.show()
     }
 
 
@@ -151,7 +157,7 @@ export class FilmDetailComponent implements OnInit {
         //     this.mvs.getFilmByTitle(this.searchByTitle, page)
         //         .subscribe(data => {
         //             if (!!event) {//if that array have not been initialized yet
-        //                 this.pages = new Array(data.total_pages);
+        //                 this.pages = new Array(data['total_pages']);
         //             }
         //
         //             if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet

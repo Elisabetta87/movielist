@@ -71,7 +71,7 @@ export class FilmsListComponent implements OnInit {
             this.mvs.getUpcomings(page)
                     .subscribe(data => {
                         if (!this.pages[0]) {//if that array have not been initialized yet
-                            this.pages = new Array(data.total_pages);
+                            this.pages = new Array(data['total_pages']);
                         }
 
                         if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
@@ -89,7 +89,7 @@ export class FilmsListComponent implements OnInit {
                     .subscribe(data => {
                         if (data.results.length != 0) {
                             if (!!event) {//if that array have not been initialized yet
-                                this.pages = new Array(data.total_pages);
+                                this.pages = new Array(data['total_pages']);
                             }
                             if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
                                 this.pages[this.currPageIndex] = data.results;
