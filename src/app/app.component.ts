@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 
 @Component({
     selector: 'fl-app',
@@ -10,6 +10,10 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    private viewContainerRef: ViewContainerRef;
 
-    constructor(){ console.log(98000987); }
+
+    public constructor(viewContainerRef: ViewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
 }

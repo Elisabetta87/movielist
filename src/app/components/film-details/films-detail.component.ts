@@ -1,17 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, QueryList} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
 import * as moment from 'moment';
-
+import {Observable} from "rxjs/Rx";
+import {ModalBiographyComponent} from "../ModalBiography/ModalBiography.component";
 
 @Component ({
-    templateUrl : './films-detail.component.html',
-    styleUrls   : ['./films-detail.component.scss']
+    template    : require('./films-detail.component.html'),
+    styles      : [require('./films-detail.component.scss')]
 })
 
 
 export class FilmDetailComponent implements OnInit {
+
+    @ViewChild(ModalBiographyComponent) modal: QueryList<ModalBiographyComponent>;
 
     details: string;
     reviews: {key:any};
@@ -23,9 +26,9 @@ export class FilmDetailComponent implements OnInit {
     isUpcoming = true;
     isStillUpcoming:boolean = true;
     mymoment = moment;
-    chars:any[] = [];
-    person:{key:any};
-    
+    cast:any[];
+    character:{key:any};
+
 
     constructor(private mvs: MovieService,
                 private route: ActivatedRoute,
@@ -43,11 +46,12 @@ export class FilmDetailComponent implements OnInit {
                         this.getDetails(this.route.snapshot.params['id']);
                         this.getReview(this.route.snapshot.params['id']);
                         this.getRecommendations(this.route.snapshot.params['id']);
-                        this.getCharacters(this.route.snapshot.params['id']);
+                        this.getCharacters(this.route.snapshot.params['id'], 6);
                     });
             }
 
         });
+
     }
 
 
@@ -119,29 +123,26 @@ export class FilmDetailComponent implements OnInit {
     }
 
 
-
-    getCharacters(id:number) {
-        this.mvs.getCharacters(id)
-            .subscribe(char => {
-                this.chars = [];
-                for (let i=0; i<6; i++) {
-                    this.chars.push(char.cast[i]);
-                    this.getPerson(this.chars[i].id);
+    getCharacters(movieId:number, numActors:number) {
+        this.cast = new Array();
+        this.mvs.getCast(movieId, numActors)
+            .subscribe( arrObsActor => {
+                for (let i=0; i<arrObsActor.sources.length; i++){
+                    let character = arrObsActor.sources[i][1];
+                    arrObsActor.sources[i][0].subscribe(data => {
+                        data.character = character;
+                        this.cast.push(data);
+                    })
                 }
-                //console.log(this.getPerson(this.chars[0].id), this.chars[0].id);
+
             })
     }
 
 
-    getPerson(person_id:number) {
-        this.mvs.getPerson(person_id)
-            .subscribe(person => {
-                this.person = person;
-                // console.log(this.person['biography']);
-                //console.log(this.person.biography);
-            })
+    showBiograhy(char){
+        this.character = char;
+        this.modal.modal.show()
     }
-
 
 
     sendSearch(page:number, event?:any){

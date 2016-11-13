@@ -8,9 +8,8 @@
                 </button>
                 <h4 class="modal-title">Static modal</h4>
             </div>
-            <div class="modal-body">
-                This is static modal, backdrop click will not close it.
-                Click <b>&times;</b> to close modal.
+            <div class="modal-body" *ngIf="_character">
+                {{_character['biography']}}
             </div>
         </div>
     </div>

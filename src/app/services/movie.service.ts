@@ -1,7 +1,7 @@
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 import "rxjs/Rx";
-
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class MovieService {
@@ -51,7 +51,7 @@ export class MovieService {
 
 
 
-    getCharacters(id:number) {
+    getCredits(id:number) {
         return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/credits?'+this.apiKey)
                         .map(data => JSON.parse(data['_body']))
     }
@@ -61,8 +61,20 @@ export class MovieService {
         return this.http.get('https://api.themoviedb.org/3/person/'+person_id+'?'+this.apiKey)
                         .map(data => JSON.parse(data['_body']))
     }
-
-
+    
+    
+    getCast(id:number, numCast:number){
+        return this.getCredits(id)
+            .map( credits => credits.cast.length >= numCast ? credits.cast.slice(0,numCast) : credits.cast )
+            .map( cast => {
+                     let arrGetPerson = new Array();
+                     for(let i in cast){
+                         arrGetPerson.push([this.getPerson(cast[i].id), cast[i].character]);
+                         //arrGetPerson.push(this.getPerson(cast[i].id));
+                     }
+                     return Observable.forkJoin(arrGetPerson);
+            });
+    }
 
 
     getTrailer(id: number) {

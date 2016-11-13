@@ -8,8 +8,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "baseUrl": "./src/app"
+    "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
