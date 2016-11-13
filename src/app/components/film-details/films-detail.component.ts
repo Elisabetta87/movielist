@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, QueryList} from '@angular/core';
+import {Component, OnInit, ViewChild, QueryList, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
@@ -15,7 +15,7 @@ import {Location} from "@angular/common";
 
 export class FilmDetailComponent implements OnInit {
 
-    @ViewChild(ModalBiographyComponent) modal: QueryList<ModalBiographyComponent>;
+    @ViewChild(ModalBiographyComponent) modalBiography: QueryList<ModalBiographyComponent>;
 
     details: string;
     reviews: {key:any};
@@ -131,59 +131,32 @@ export class FilmDetailComponent implements OnInit {
         this.cast = new Array();
         this.mvs.getCast(movieId, numActors)
             .subscribe( arrObsActor => {
-                if (arrObsActor.sources) {
-                    for (let i=0; i<arrObsActor.sources.length; i++){
-                        let character = arrObsActor.sources[i][1];
-                        arrObsActor.sources[i][0].subscribe(data => {
-                            //console.log(data);
-                            data.character = character;
-                            this.cast.push(data);
-                        })
-                    }
+                for (let i=0; i<arrObsActor['sources'].length; i++){
+                    let character = arrObsActor['sources'][i][1];
+                    arrObsActor['sources'][i][0].subscribe((data:any) => {
+                        data.character = character;
+                        this.cast.push(data);
+                    })
                 }
-
             })
     }
 
 
-    showBiograhy(char){
+    showBiograhy(char:{key:any}){
         this.character = char;
+    }
+
+    resetCharacter(){
+        this.character = null;
     }
 
 
     sendSearch(page:number, event?:any){
-        // if ( page || event.key == 'Enter' || event.type == 'click'){
-        //     this.isStillUpcoming = false;
-        //     this.mvs.getFilmByTitle(this.searchByTitle, page)
-        //         .subscribe(data => {
-        //             if (!!event) {//if that array have not been initialized yet
-        //                 this.pages = new Array(data['total_pages']);
-        //             }
-        //
-        //             if (!this.pages[this.currPageIndex]) {//if that cell of his array hase not been fill yet
-        //                 this.pages[this.currPageIndex] = data.results;
-        //             }
-        //         })
-        // }
-
         if ( event.key == 'Enter' || event.type == 'click' ){
             this.router.navigate([''], {queryParams: {title: this.searchByTitle}});
         }
     }
 
-
-    // myevent(ev) {
-    //     console.log(ev);
-    // }
-
-    /*getTrailer(id:number) {
-        this.mvs.getTrailer(id)
-            .subscribe(trailer =>{
-                this.dangerousUrl = this.video + trailer.results[1].id;
-                this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
-                console.log(trailer, trailer.results[0].id, this.trustedUrl.changingThisBreaksApplicationSecurity);
-            })
-    }*/
 
 }
 
