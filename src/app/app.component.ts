@@ -4,7 +4,6 @@ import {Component, ViewContainerRef} from '@angular/core';
     selector: 'fl-app',
     template: `
         <div>
-                
             <router-outlet></router-outlet>
         </div>
     `,

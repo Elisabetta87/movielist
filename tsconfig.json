@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "ES5",
     "module": "commonjs",
-    "moduleResolution": "node",
+    //"moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "noImplicitAny": true,
+    //"noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "baseUrl": "./src/app"
   },

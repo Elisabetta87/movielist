@@ -1,19 +1,22 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, QueryList} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
 import {Router, Route, ActivatedRoute} from "@angular/router";
+import {HeaderBarComponent} from "../header-bar/header-bar.component";
 import * as moment from 'moment';
 import "rxjs/Rx";
 
 
 @Component({
-    selector: 'fl-films',
-    templateUrl: './films-list.component.html',
-    styleUrls: ['./films-list.component.scss']
+    selector    : 'fl-films',
+    templateUrl : './film-list.component.html',
+    styleUrls   : ['app/films-list.component.scss']
 })
 
 export class FilmsListComponent implements OnInit {
 
-    config:{key:any}
+    @ViewChild(HeaderBarComponent) headerBarComponent: QueryList<HeaderBarComponent>;
+
+    config:{key:any};
     pageTitle: string = 'Film List';
     films: any[];
     // pages: it's an array of array, where each inxed represent a page number, and the value a list of film for that page number
@@ -31,7 +34,6 @@ export class FilmsListComponent implements OnInit {
     constructor(private mvs: MovieService, private route: ActivatedRoute){}
 
     ngOnInit(){
-
         this.mvs.getConfig()
             .subscribe(data => {
                 this.config = data;
@@ -104,47 +106,5 @@ export class FilmsListComponent implements OnInit {
     }
     
 }
-
-
-
-
-
-
-
-
-/*
-class Persona {
-    private _newbirthday:number = 1;
-
-    constructor(private nome:string, private cognome:string, private eta:number, private gender:string|number){
-    }
-
-    itsMyBirthday(){
-        this.eta = this.eta ? (this.eta + this._newbirthday) : this._newbirthday;
-    }
-
-}
-
-class Studente extends Persona {
-
-    constructor(private n:string, cn:string, eta:number, gender:string|number, private job:string){
-        super(n, cn, eta, gender);
-    }
-
-}
-
-
-let p1: Persona = new Persona('Elisa', 'Gualtieri', 29, 'F');
-
-console.log( p1 );
-
-p1.itsMyBirthday();
-console.log(p1);
-
-
-let s1: Studente = new Studente('Fulvio', 'Cosco', 38, 'M', 'frontender');
-
-console.log( s1 );
-*/
 
 

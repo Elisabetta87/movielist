@@ -6,10 +6,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MovieService} from "./services/movie.service";
 import {FilmsListComponent} from "./components/film-list/films-list.component";
 import {FilmDetailComponent} from './components/film-details/films-detail.component';
-import {routing} from './app.routing';
+import {RoutingModule} from './app.routing';
 import {ActivatedRoute} from "@angular/router";
 import {Ng2BootstrapModule} from "ng2-bootstrap/ng2-bootstrap";
 import {ModalBiographyComponent} from "./components/ModalBiography/ModalBiography.component";
+import {HeaderBarComponent} from "./components/header-bar/header-bar.component";
 
 
 @NgModule({
@@ -19,14 +20,15 @@ import {ModalBiographyComponent} from "./components/ModalBiography/ModalBiograph
         FormsModule,
         ReactiveFormsModule,
         Ng2BootstrapModule,
-        routing
+        RoutingModule
     ],
 
     declarations: [
         AppComponent,
         FilmsListComponent,
         FilmDetailComponent,
-        ModalBiographyComponent
+        ModalBiographyComponent,
+        HeaderBarComponent
     ],
 
     providers: [

@@ -72,7 +72,7 @@ export class MovieService {
                          arrGetPerson.push([this.getPerson(cast[i].id), cast[i].character]);
                          //arrGetPerson.push(this.getPerson(cast[i].id));
                      }
-                     return Observable.forkJoin(arrGetPerson);
+                     return Observable['forkJoin'](arrGetPerson);
             });
     }
 

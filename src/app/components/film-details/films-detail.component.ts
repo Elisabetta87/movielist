@@ -3,11 +3,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../services/movie.service";
 import "rxjs/Rx";
 import * as moment from 'moment';
-import {Observable} from "rxjs/Rx";
 import {ModalBiographyComponent} from "../ModalBiography/ModalBiography.component";
 import {Location} from "@angular/common";
+import {HeaderBarComponent} from "../header-bar/header-bar.component";
+
 
 @Component ({
+    selector: 'fl-films',
     template    : require('./films-detail.component.html'),
     styles      : [require('./films-detail.component.scss')]
 })
