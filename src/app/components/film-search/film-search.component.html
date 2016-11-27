@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2">
+                <a href="http://www.elisagualtieri.co.uk/#/home">
+                    <div class="btn btn-info back">
+                        <i class="fa fa-chevron-left fa-backward" aria-hidden="true"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="hidden-xs col-sm-2">
+                <img src="../../assets/images/logo.png" class="header-logo"  (click)="onBack()" >
+            </div>
+            <div class="col-xs-10 col-sm-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-7 col-xs-10" style="padding-left: 0">
+                            <input class="form-control"
+                                   placeholder="Search by title"
+                                   type="text"
+                                   id="searchByTitle"  name="searchByTitle"
+                                   [(ngModel)]="searchTitle"
+                                   (keyup)="takeTitle($event)"
+                                   required
+                            />
+
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <div
+                                    class="header-button btn btn-default glyphicon glyphicon-search"
+                                    (click)="takeTitle($event)"
+                            ></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

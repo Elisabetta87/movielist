@@ -10,6 +10,9 @@ import {routing} from './app.routing';
 import {ActivatedRoute} from "@angular/router";
 import {Ng2BootstrapModule} from "ng2-bootstrap/ng2-bootstrap";
 import {ModalBiographyComponent} from "./components/ModalBiography/ModalBiography.component";
+import {FilmSearchComponent} from "./components/film-search/film-search.component";
+import {MovieSearchService} from "./services/movie-search.service";
+import {FilmUpcomingComponent} from "./components/film-upcoming/film-upcoming.component";
 
 
 @NgModule({
@@ -26,11 +29,14 @@ import {ModalBiographyComponent} from "./components/ModalBiography/ModalBiograph
         AppComponent,
         FilmsListComponent,
         FilmDetailComponent,
-        ModalBiographyComponent
+        ModalBiographyComponent,
+        FilmSearchComponent,
+        FilmUpcomingComponent
     ],
 
     providers: [
-        MovieService
+        MovieService,
+        MovieSearchService
     ],
 
     bootstrap: [ AppComponent ]

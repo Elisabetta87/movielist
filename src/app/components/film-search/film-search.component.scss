@@ -1,0 +1,64 @@
+.container-fluid > .row{
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+
+nav{
+  background-color: #365CAD;
+  color: #fff;
+}
+
+
+.back {
+  margin-bottom: 20px;
+}
+
+
+.btn-info.back {
+  background-color: #CB564C;
+  border-color: #CB564C;
+  display: inline-block;
+  margin-top: 5px;
+
+  .fa-backward {
+    color: #ffffff;
+  }
+}
+
+
+
+
+.btn-default {
+  background-color: #365CAD;
+  border-color: #ccc;
+  color: #fff;
+}
+
+.header-button {
+  height: 34px;
+  width: 40px;
+  background-color: #ffffff;
+  border:#365CAD;
+  margin-left: -25px;
+  border-style: none;
+}
+
+.glyphicon-search {
+  color: #365CAD;
+}
+
+
+
+
+
+
+@media (min-width: 768px){
+  .header-logo {
+    height: 55px;
+  }
+  .header-button {
+    margin-left: 0px;
+  }
+}

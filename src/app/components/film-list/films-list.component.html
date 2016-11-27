@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<!--<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-2">
@@ -24,7 +24,7 @@
                                    required
                                    maxlength="70"
                             />
-                          <!--  <input type="number" min="1970" max="2016"  />-->
+                          &lt;!&ndash;  <input type="number" min="1970" max="2016"  />&ndash;&gt;
                         </div>
                         <div class="col-sm-2 col-xs-2">
                             <button type="submit"
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-</nav>
+</nav>-->
 <div class="container">
      <ul class="list-group">
         <li class="list-group-item" id="all-film" *ngFor="let film of pages[currPageIndex]" class="{{film.id}}">
@@ -69,4 +69,11 @@
             </li>
         </ul>
     </div>
+</div>
+
+
+
+
+<div *ngIf="movies">
+    <ul><li *ngFor="let movie of movies.results">{{movie.title}}</li></ul>
 </div>

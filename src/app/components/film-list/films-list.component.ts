@@ -1,8 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
 import {Router, Route, ActivatedRoute} from "@angular/router";
 import * as moment from 'moment';
 import "rxjs/Rx";
+import {MovieSearchService} from "../../services/movie-search.service";
 
 
 @Component({
@@ -13,13 +14,15 @@ import "rxjs/Rx";
 
 export class FilmsListComponent implements OnInit {
 
-    config:{key:any}
+    @Input() movies:{key:any};
+
+    searchByTitle: string;
+    config:{key:any};
     pageTitle: string = 'Film List';
     films: any[];
     // pages: it's an array of array, where each inxed represent a page number, and the value a list of film for that page number
     // [ [list_film1 data], [list_film2 data], [list_film3 data], [list_film4 data], [list_film5 data] ...]
     pages: any[][];
-    searchByTitle: string;//ngModel
     currPageIndex:number;
     currLanguage = 'en-EN';
     isUpcoming = true;
@@ -28,7 +31,12 @@ export class FilmsListComponent implements OnInit {
     errorMessage: string;
     mymoment = moment;
     
-    constructor(private mvs: MovieService, private route: ActivatedRoute){}
+    constructor(
+        private mvs: MovieService, 
+        private route: ActivatedRoute, 
+        private moviesearch: MovieSearchService
+    ){}
+
 
     ngOnInit(){
 
@@ -47,6 +55,16 @@ export class FilmsListComponent implements OnInit {
             this.upcoming(1);
         }
         this.isGTxs = window.innerWidth > 767;
+
+
+        // this.moviesearch.get_title()
+        //     .subscribe(title =>{
+        //         console.log('subscribe', title);
+        //         this.searchByTitle = title;
+        //         this.sendSearch(null);
+        // });
+
+
     }
 
     newPage(clicked_page: number){
@@ -82,7 +100,7 @@ export class FilmsListComponent implements OnInit {
     }
 
     sendSearch(page:number, event?:any){
-        if ( page || event.key == 'Enter' || event.type == 'click'){
+        //if ( page || event.key == 'Enter' || event.type == 'click'){
             this.isStillUpcoming = false;
             if (this.searchByTitle) {
                 this.mvs.getFilmByTitle(this.searchByTitle, page)
@@ -99,52 +117,10 @@ export class FilmsListComponent implements OnInit {
                         }
                     })
             }
-        }
+        //}
 
     }
     
 }
-
-
-
-
-
-
-
-
-/*
-class Persona {
-    private _newbirthday:number = 1;
-
-    constructor(private nome:string, private cognome:string, private eta:number, private gender:string|number){
-    }
-
-    itsMyBirthday(){
-        this.eta = this.eta ? (this.eta + this._newbirthday) : this._newbirthday;
-    }
-
-}
-
-class Studente extends Persona {
-
-    constructor(private n:string, cn:string, eta:number, gender:string|number, private job:string){
-        super(n, cn, eta, gender);
-    }
-
-}
-
-
-let p1: Persona = new Persona('Elisa', 'Gualtieri', 29, 'F');
-
-console.log( p1 );
-
-p1.itsMyBirthday();
-console.log(p1);
-
-
-let s1: Studente = new Studente('Fulvio', 'Cosco', 38, 'M', 'frontender');
-
-console.log( s1 );
-*/
 
 
